@@ -1,0 +1,100 @@
+@import '@fontsource/montserrat/300.css';
+@import '@fontsource/montserrat/400.css';
+@import '@fontsource/montserrat/500.css';
+@import '@fontsource/montserrat/700.css';
+@import '@fontsource/cairo/400.css';
+@import '@fontsource/cairo/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #4a6da7;
+  --color-secondary: #6a98d4;
+  --color-accent: #f59e0b;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-background: #f8fafc;
+  --color-text: #1e293b;
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-background text-text font-montserrat;
+    min-height: 100vh;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(var(--color-secondary-rgb), 0.1) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(var(--color-primary-rgb), 0.1) 0px, transparent 50%);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl leading-tight;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl leading-tight;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl leading-snug;
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+
+  .ar {
+    @apply font-cairo;
+    direction: rtl;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-dark focus:ring-primary;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-white hover:bg-secondary-dark focus:ring-secondary;
+  }
+
+  .btn-accent {
+    @apply bg-accent text-white hover:bg-accent-dark focus:ring-accent;
+  }
+
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section {
+    @apply py-12 md:py-24;
+  }
+
+  .video-container {
+  @apply relative overflow-hidden rounded-xl shadow-lg;
+  @apply h-auto; /* hauteur auto */
+  aspect-ratio: 16 / 9;
+}
+
+.video-container iframe,
+.video-container video {
+  @apply w-full h-full border-0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+}
