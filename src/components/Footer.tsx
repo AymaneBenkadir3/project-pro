@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Instagram, Mail, MapPin, Phone, School } from 'lucide-react';
+import { Facebook, Mail, MapPin, Phone, School } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -32,16 +32,11 @@ const Footer: React.FC = () => {
               <div className="flex items-start gap-3">
                 <MapPin className="text-secondary w-5 h-5 mt-1 flex-shrink-0" />
                 <p className="text-sm md:text-base">
-                  123 Rue de l'École, 75001 Paris, France
-                </p>
+مدرسة جمال الدين المهياوي، 26GM+3JQ, Salé                </p>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="text-secondary w-5 h-5 flex-shrink-0" />
-                <p className="text-sm md:text-base">+33 1 23 45 67 89</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <Mail className="text-secondary w-5 h-5 flex-shrink-0" />
-                <p className="text-sm md:text-base">contact@parents-eleves.org</p>
+                <p className="text-sm md:text-base">0660191168</p>
               </div>
             </div>
           </div>
@@ -51,18 +46,11 @@ const Footer: React.FC = () => {
             <h3 className="text-xl font-bold text-primary">Nous suivre</h3>
             <div className="flex gap-4">
               <a
-                href="#"
+                href="https://www.facebook.com/profile.php?id=100068444071272&locale=hu_HU"
                 className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-110"
                 aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-110"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-5 h-5" />
               </a>
               <a
                 href="mailto:contact@parents-eleves.org"
