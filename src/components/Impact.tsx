@@ -1,5 +1,6 @@
 import React from 'react';
 import { Users, BookOpen, Award, Heart } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface StatItemProps {
   icon: React.ReactNode;
@@ -10,18 +11,23 @@ interface StatItemProps {
 
 const StatItem: React.FC<StatItemProps> = ({ icon, value, label, delay }) => {
   return (
-    <div 
-      className="flex flex-col items-center"
-      data-aos="fade-up"
-      data-aos-delay={delay}
-      data-aos-duration="800"
+    <motion.div
+      className="flex flex-col items-center p-6 bg-white shadow-xl rounded-xl hover:scale-105 transition-transform duration-300"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: delay / 1000, duration: 0.6 }}
     >
-      <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 text-primary">
+      <motion.div
+        className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 text-primary"
+        whileHover={{ rotate: 10, scale: 1.1 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
         {icon}
-      </div>
+      </motion.div>
       <h3 className="text-3xl md:text-4xl font-bold text-primary mb-2">{value}</h3>
       <p className="text-secondary text-center">{label}</p>
-    </div>
+    </motion.div>
   );
 };
 
@@ -29,14 +35,24 @@ const Impact: React.FC = () => {
   return (
     <section className="section bg-white py-20">
       <div className="container-custom">
-        <div className="text-center mb-16" data-aos="fade-up">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+        <div className="text-center mb-16">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-primary mb-4"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             Notre Impact
-          </h2>
-          <p className="text-lg text-secondary max-w-3xl mx-auto">
+          </motion.h2>
+          <motion.p
+            className="text-lg text-secondary max-w-3xl mx-auto"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
             Depuis notre création, nous avons fait une différence significative
             dans la vie scolaire de nos enfants.
-          </p>
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-6">

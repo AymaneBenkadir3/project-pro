@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
+import { motion, useAnimation, useInView } from 'framer-motion';
+import { useRef, useEffect } from 'react';
 
 interface VideoCardProps {
-  videoId?: string;           // Optionnel, pour vidéo Vimeo
-  localVideoSrc?: string;     // Optionnel, pour vidéo locale
+  videoId?: string;
+  localVideoSrc?: string;
   title: string;
   description: string;
   delay?: number;
@@ -15,27 +17,54 @@ const VideoCard: React.FC<VideoCardProps> = ({
   description,
   delay = 0,
 }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const controls = useAnimation();
 
   useEffect(() => {
-    if (cardRef.current) {
-      cardRef.current.setAttribute('data-aos', 'fade-up');
-      cardRef.current.setAttribute('data-aos-delay', delay.toString());
-      cardRef.current.setAttribute('data-aos-duration', '800');
+    if (inView) {
+      controls.start('visible');
     }
-  }, [delay]);
+  }, [inView, controls]);
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        delay: delay / 1000,
+        duration: 0.7,
+        ease: 'easeOut',
+      },
+    },
+  };
+
+  const hoverOverlayVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 0.3, transition: { duration: 0.3 } },
+  };
 
   return (
-    <div
-      ref={cardRef}
-      className="flex flex-col h-full bg-white rounded-xl overflow-hidden shadow-soft hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
+    <motion.div
+      ref={ref}
+      className="flex flex-col h-full bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl cursor-pointer transition-shadow duration-300"
+      variants={cardVariants}
+      initial="hidden"
+      animate={controls}
+      whileHover="hover"
     >
-      <div className="video-container">
+      <motion.div
+        className="relative overflow-hidden rounded-t-3xl"
+        style={{ aspectRatio: '16 / 9' }}
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.4 }}
+      >
         {videoId ? (
           <iframe
             src={`https://player.vimeo.com/video/${videoId}?title=0&byline=0&portrait=0`}
-            width="640"
-            height="360"
+            className="w-full h-full object-cover"
             frameBorder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
@@ -43,11 +72,9 @@ const VideoCard: React.FC<VideoCardProps> = ({
           ></iframe>
         ) : localVideoSrc ? (
           <video
-            width="640"
-            height="360"
+            className="w-full h-full object-cover"
             controls
             preload="metadata"
-            poster="" // tu peux ajouter une image d’aperçu ici si tu veux
           >
             <source src={localVideoSrc} type="video/mp4" />
             Votre navigateur ne supporte pas la lecture vidéo.
@@ -55,12 +82,25 @@ const VideoCard: React.FC<VideoCardProps> = ({
         ) : (
           <p className="p-4">Vidéo non disponible</p>
         )}
+        <motion.div
+          className="absolute inset-0 bg-black pointer-events-none rounded-t-3xl"
+          variants={hoverOverlayVariants}
+          initial="hidden"
+          animate="hidden"
+          whileHover="visible"
+        />
+      </motion.div>
+
+      <div className="p-6 flex flex-col flex-grow">
+        <h3 className="text-2xl font-extrabold text-primary mb-3 leading-snug">
+          {title}
+        </h3>
+        <p className="text-gray-700 text-base leading-relaxed flex-grow">
+          {description}
+        </p>
+        {/* Bouton "Voir plus" supprimé ici */}
       </div>
-      <div className="p-4 flex-grow">
-        <h3 className="text-xl font-bold text-primary mb-2">{title}</h3>
-        <p className="text-text/80">{description}</p>
-      </div>
-    </div>
+    </motion.div>
   );
 };
 
